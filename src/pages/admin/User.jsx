@@ -60,9 +60,8 @@ const User = () => {
             </Box>
 
             <Dialog open={showForm}
-                fullWidth
-                maxWidth
 
+                maxWidth
             >
                 <div className="p-10">
                     <div className="flex justify-center">

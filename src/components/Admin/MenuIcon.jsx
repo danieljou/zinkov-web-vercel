@@ -8,14 +8,14 @@ const MenuIcon = ({ data, change }) => {
       className={`flex items-center ${active && "bg-gray-700/40"
         } gap-x-3 px-[12px] py-2 duration-300 hover:bg-gray-700/40 rounded overflow-hidden`}
       to={data.url}
-      style={({ isActive }) => {
-        setactive(isActive);
-        return isActive
-          ? {
-            color: "#fff",
-          }
-          : { color: "#545e6f" };
-      }}
+    // style={({ isActive }) => {
+    //   setactive(isActive);
+    //   return isActive
+    //     ? {
+    //       color: "#fff",
+    //     }
+    //     : { color: "#545e6f" };
+    // }}
     >
       <span className={`text-gray-500 text-2xl ${active && "text-[#6366F1]"}`}>
         {<data.icon />}

@@ -5,11 +5,37 @@ import { useCreateUserMutation } from '../../api/UserApi';
 import { toast } from 'react-toastify';
 import { RiLoaderLine } from 'react-icons/ri';
 import { useGetCountryQuery } from '../../api/AuthenticationApi';
+import FormErrorsProvider from '../../utils/FormErrorsProvider';
 
+
+
+function DisplayErrors({ errors }) {
+    if (!errors) return null;
+
+    return (
+        <div>
+            <h3 className='text-xl font-bold' > Erreurs :</h3>
+            {Object.keys(errors).map(field => (
+                <div key={field}>
+                    <h4>{field} :</h4>
+                    <ul>
+                        {/* {JSON.stringify(errors[field])} */}
+                        {errors[field].map((error, index) => (
+                            <li key={index}>{error}</li>
+                        ))}
+                    </ul>
+                </div>
+            ))}
+        </div>
+    );
+}
 const FormUser = ({ refetch }) => {
 
     const { data, isSuccess } = useGetCountryQuery()
     const [countries, setCountries] = useState([])
+    const [errors, setErrors] = useState(null)
+    const [errorState, setErrorState] = useState({});
+    const [helperTextState, setHelperTextState] = useState({});
     useEffect(() => {
         console.log(data);
         if (isSuccess && data) {
@@ -48,6 +74,7 @@ const FormUser = ({ refetch }) => {
         // const res = null;
         if (res.error) {
             console.log(res.error);
+            setErrors(res.error.data)
             if (res.error.status === 400) {
                 toast("Verifiez tous les champs", { type: 'error' })
             }
@@ -65,12 +92,20 @@ const FormUser = ({ refetch }) => {
     }
     return (
         <div>
-            <form action="" onSubmit={handleSubmit}>
+            {/* <DisplayErrors errors={errors} /> */}
+            <form action="" onSubmit={handleSubmit} noValidate >
+                <FormErrorsProvider
+                    errors={errors}
+                    setErrorState={setErrorState}
+                    setHelperTextState={setHelperTextState}
+                />
                 <div className="flex justify-center w-full gap-x-5">
                     <div className="w-full">
                         {/* <Form */}
                         <FormTemplate label='Nom' >
                             <TextField
+                                error={errorState['first_name']}
+                                helperText={helperTextState['first_name']}
                                 required
                                 variant='outlined'
                                 placeholder='Entrez le nom '
@@ -96,6 +131,8 @@ const FormUser = ({ refetch }) => {
                 </div>
                 <FormTemplate label='Email' >
                     <TextField
+                        error={errorState['email']}
+                        helperText={helperTextState['email']}
                         required
                         variant='outlined'
                         placeholder='exemple@gmail.com'
@@ -107,6 +144,8 @@ const FormUser = ({ refetch }) => {
                 </FormTemplate>
                 <FormTemplate label="Nom d' utilisateur" >
                     <TextField
+                        error={errorState['username']}
+                        helperText={helperTextState['username']}
                         required
                         variant='outlined'
                         placeholder='username'
@@ -119,6 +158,8 @@ const FormUser = ({ refetch }) => {
 
                 <FormTemplate label="Type de d'utilisateur">
                     <Select
+                        error={errorState['rule']}
+                        helperText={helperTextState['rule']}
                         // label="Selectionnez le type d'utilisateur"
                         placeholder="Selectionnez le type d'utilisateur"
                         // labelId="demo-simple-select-label"
@@ -137,6 +178,7 @@ const FormUser = ({ refetch }) => {
                 </FormTemplate>
 
                 <Autocomplete
+
                     value={formData.country}
                     onChange={(target, value) => {
                         setFormData({
@@ -147,6 +189,8 @@ const FormUser = ({ refetch }) => {
                     options={countries}
                     renderInput={(params) => (
                         <TextField
+                            error={errorState['country']}
+                            helperText={helperTextState['country']}
                             {...params}
                             type="text"
                             variant="outlined"
