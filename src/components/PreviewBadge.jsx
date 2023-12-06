@@ -6,6 +6,7 @@ import QRCode from 'react-qr-code'
 import { useGetCountryQuery } from '../api/AuthenticationApi'
 import logo from '../assets/logo.jpg'
 import logo2 from '../assets/logos.jpg'
+import images from '../assets/images'
 // import 'https://cdn.tailwindcss.com'
 const FUNCTIONS = {
     'Officiel': {
@@ -44,7 +45,7 @@ const FUNCTIONS = {
         privileges: ['R', 'N', 'T']
     },
     "Médical": {
-        color: 'bg-yellow',
+        color: 'bg-yellow-600',
         access: [3, 4, 8, 9],
         privileges: ['R', 'N', 'T']
     },
@@ -177,7 +178,13 @@ const PreviewBadge = () => {
                                         <p>10 : Direction	des	épreuves</p>
                                     </div>
                                 </div>
-                                <img src={logo2} alt="" />
+                                <div className="grid grid-cols-5 w-full gap-3 items-center">
+                                    <img src={images.logoOrange} alt="orange" className='w-full' />
+                                    <img src={images.logoCrtv} alt="orange" className='w-full' />
+                                    <img src={images.logoMadiba} alt="orange" className='w-full' />
+                                    <img src={images.logoPmuc} alt="orange" className='w-full' />
+                                    <img src={images.logoPrudential} alt="orange" className='w-full' />
+                                </div>
                                 <div className="absolute bottom-0 text-white text-[13px] text-justify left-0 right-0 p-10">
                                     La carte d'accréditation demeure la propriété du CIJF et peut m'être retirée avec effet immédiat à la seule discrétion du CIJF. En faisant usage de cette carte, j'accepte d'être filmé notamment par la télévision, photographié identifié ou enregistré de toute autre manière pendant les jeux de la Francophonie, dans les conditions et pour les fins autorisées actuellement ou à l'avenir par le CIJF pour la promotion des Jeux. J'accepte de n'utiliser que mon usage per-sonnel, et à des fins non commerciales, les photographies que je prendrai et les films que je réaliserai pendant les compétitions, y compris celles et ceux sur les stades sauf autorisation écrite préalable du CIJF.
                                 </div>
