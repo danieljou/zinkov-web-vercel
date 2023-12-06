@@ -31,7 +31,7 @@ const Demandes = () => {
         { field: 'Photo', headerName: 'Photo', flex: 1, renderCell: ParticipantImage, height: 70 },
         { field: 'name', headerName: 'Nom', flex: 1, },
         { field: 'surname', headerName: 'Prénom', flex: 1, },
-        { field: 'activity', headerName: 'Fonction', flex: 1, },
+        { field: 'activity', headerName: 'Epreuve', flex: 1, },
         { field: 'category', headerName: 'Categorie', flex: 1, },
         { field: 'function', headerName: 'Fonction', flex: 1, },
         { field: 'country', headerName: 'Pays', flex: 1, },
