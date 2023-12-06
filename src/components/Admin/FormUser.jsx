@@ -9,26 +9,6 @@ import FormErrorsProvider from '../../utils/FormErrorsProvider';
 
 
 
-function DisplayErrors({ errors }) {
-    if (!errors) return null;
-
-    return (
-        <div>
-            <h3 className='text-xl font-bold' > Erreurs :</h3>
-            {Object.keys(errors).map(field => (
-                <div key={field}>
-                    <h4>{field} :</h4>
-                    <ul>
-                        {/* {JSON.stringify(errors[field])} */}
-                        {errors[field].map((error, index) => (
-                            <li key={index}>{error}</li>
-                        ))}
-                    </ul>
-                </div>
-            ))}
-        </div>
-    );
-}
 const FormUser = ({ refetch }) => {
 
     const { data, isSuccess } = useGetCountryQuery()

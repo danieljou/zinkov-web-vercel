@@ -100,8 +100,8 @@ const PreviewBadge = () => {
                         <div className="w-full p-3 flex justify-center">
                             <div className={`${FUNCTIONS[data.function].color}  w-full p-3 py-9 h-[600px] flex flex-col gap-y-5`}>
                                 <div className="m-auto h-1/4 bg-white/75 w-5/6 flex p-3 gap-4">
-                                    <p className='text-xl font-semibold' > 23 <sup>ième</sup>
-                                        édition du championat d'athlétisme Senior : <br /> <span className='font-bold text-3xl' >Douala - 24</span>
+                                    <p className='text-xl font-semibold' > 
+                                    Au niveau du titre c’est 23 <sup>ième</sup> championnats d’Afrique d’athlétisme Senior « Douala 24 »
                                     </p>
                                     <img src={logo} className='h-full' alt="" />
                                 </div>

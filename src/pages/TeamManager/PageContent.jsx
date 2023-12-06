@@ -23,7 +23,7 @@ const PageContent = ({ type, title }) => {
         { field: 'Photo', headerName: 'Photo', flex: 1, renderCell: ParticipantImage, height: 70 },
         { field: 'name', headerName: 'Nom', flex: 1, },
         { field: 'surname', headerName: 'Prénom', flex: 1, },
-        { field: 'activity', headerName: 'Fonction', flex: 1, },
+        { field: 'activity', headerName: 'Epreuve', flex: 1, },
         // { field: 'prenom', headerName: 'Option', flex: 1, },
         // Add more columns as needed
     ];
