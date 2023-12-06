@@ -116,11 +116,11 @@ const FormParticipant = () => {
                         value={formData.country}
                     />
                 </FormTemplate>
-                <FormTemplate label="Activité" >
+                <FormTemplate label="Epreuve" >
                     <TextField
                         required
                         variant='outlined'
-                        placeholder='activité'
+                        placeholder='Epreuve'
                         fullWidth
                         type='text'
                         onChange={(e) => setFormData({ ...formData, activity: e.currentTarget.value })}
