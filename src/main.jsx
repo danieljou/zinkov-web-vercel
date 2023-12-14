@@ -8,7 +8,7 @@ import LoadingPage from './components/LoadingPage.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Suspense  fallback={<LoadingPage/>} >
+    <Suspense children={<LoadingPage/>} >
       <Provider store={store} >
         <App />
       </Provider>

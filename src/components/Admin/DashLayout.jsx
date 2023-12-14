@@ -10,6 +10,7 @@ import { color } from '../../static/static'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from "@mui/material";
 import { FiArrowDownLeft, FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import LoadingPage from "../LoadingPage";
 
 function Navigation() {
   const location = useLocation();
@@ -73,6 +74,7 @@ const DashLayout = () => {
           </button>
         </div>
         <main className="pt-10 px-7">
+          <LoadingPage/>
           <Outlet />
         </main>
       </div>
