@@ -72,7 +72,7 @@ function App() {
             <Route path='create' Component={FormParticipant} />
             <Route path='officials' element={<PageContent title={'Officiels'} type={'Officiel'} />} />
             <Route path='goverment' element={<PageContent title={'Membres du gouvernement'} type={'Membre	du	gouvernement'} />} />
-            <Route path='chief-delegation' element={<PageContent title={'Chefs de délégation'} type={'Chef	de	délégation'} />} />
+            <Route path='chief-delegation' element={<PageContent title={'Chefs de délégation'} type={'Chef de délégation'} />} />
             <Route path='chief-mission' element={<PageContent title={'Chefs de missions'} type={'Chef	de	mission'} />} />
             <Route path='staff' element={<PageContent title={'Administratifs'} type={'Administratif'} />} />
             <Route path='chief-trainner' element={<PageContent title={'Entraînneur'} type={'Entraîneur'} />} />

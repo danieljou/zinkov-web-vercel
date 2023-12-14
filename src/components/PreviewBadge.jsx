@@ -7,57 +7,15 @@ import { useGetCountryQuery } from '../api/AuthenticationApi'
 import logo from '../assets/logo.jpg'
 import logo2 from '../assets/logos.jpg'
 import images from '../assets/images'
+import { FUNCTIONS } from '../static/others'
+import PreviewBagdeSleleton from '../MySleletons/PreviewBagdeSleleton'
 // import 'https://cdn.tailwindcss.com'
-const FUNCTIONS = {
-    'Officiel': {
-        color: 'bg-red-800',
-        access: [2, 9],
-        privileges: []
-    },
-    "Membre	du	gouvernement": {
-        color: 'bg-red',
-        access: [2, 9],
-        privileges: []
-    },
-    "Chef	de	délégation": {
-        color: 'bg-red',
-        access: [2, 3, 4, 9],
-        privileges: ['R', 'V', 'N', 'T']
-    },
-    "Administratift": {
-        color: 'bg-yellow',
-        access: [9],
-        privileges: ['R', 'N', 'T']
-    },
-    'Chef	de	mission': {
-        color: 'bg-yellow',
-        access: [3, 4, 9],
-        privileges: ['R', 'N', 'T']
-    },
-    "Entraîneur": {
-        color: 'bg-red-500',
-        access: [3, 4, 9],
-        privileges: ['R', 'N', 'T']
-    },
-    "Technique	de	délégation": {
-        color: 'bg-yellow-500',
-        access: [2, 3, 4, 9],
-        privileges: ['R', 'N', 'T']
-    },
-    "Médical": {
-        color: 'bg-yellow-600',
-        access: [3, 4, 8, 9],
-        privileges: ['R', 'N', 'T']
-    },
-    "Compétiteur": {
-        color: 'bg-amber-300',
-        access: [3, 4, 8, 9],
-        privileges: ['R', 'N', 'T']
-    },
-}
+
 const FirstPrivilege = [1, 2, 3, 4, 5]
 const FirstPrivilege2 = [6, 7, 8, 9, 10]
 const PreviewBadge = () => {
+
+    console.log('DL2',FUNCTIONS["Délégation"]['Officiel'])
     const { data: countries, isLoading: countriesLoading, isSuccess: countriesSuccess } = useGetCountryQuery()
     const { id } = useParams()
     const { data, isLoading, isSuccess } = useGetParticipantsDetailsQuery(id)
@@ -91,7 +49,7 @@ const PreviewBadge = () => {
         <div className='' >
             {
                 isLoading && (
-                    <Skeleton className='w-full' height={500} />
+                    <PreviewBagdeSleleton/>
                 )
             }
 
@@ -99,7 +57,7 @@ const PreviewBadge = () => {
                 isSuccess && (
                     <div className='flex justify-between  divide-x-2 w-full p-3' >
                         <div className="w-full p-3 flex justify-center">
-                            <div className={`${FUNCTIONS[data.function].color}  w-full p-3 py-9 h-[600px] flex flex-col gap-y-5`}>
+                            <div className={`${FUNCTIONS[data.category][data.function].color}  w-full p-3 py-9 h-[600px] flex flex-col gap-y-5`}>
                                 <div className="m-auto h-1/4 bg-white/75 w-5/6 flex p-3 gap-4">
                                     <p className='text-xl font-semibold' > 
                                      23 <sup>ième</sup> championnats d’Afrique d’athlétisme Senior « Douala 24 »
@@ -129,8 +87,8 @@ const PreviewBadge = () => {
                                         <div className="w-full grid grid-cols-5 gap-3 mb-3 mt-4 ">
                                             {
                                                 FirstPrivilege.map((el, key) => (
-                                                    <div key={key} className={` w-full h-10 flex justify-center items-center ${FUNCTIONS[data.function].access.indexOf(el) != -1 && "bg-white"}`} >
-                                                        {FUNCTIONS[data.function].access.indexOf(el) != -1 && (<div className='font-bold'> {el} </div>)}
+                                                    <div key={key} className={` w-full h-10 flex justify-center items-center ${FUNCTIONS[data.category][data.function].access.indexOf(el) != -1 && "bg-white"}`} >
+                                                        {FUNCTIONS[data.category][data.function].access.indexOf(el) != -1 && (<div className='font-bold'> {el} </div>)}
                                                     </div>
                                                 ))
                                             }
@@ -138,8 +96,8 @@ const PreviewBadge = () => {
                                         <div className="w-full grid grid-cols-5 gap-3 ">
                                             {
                                                 FirstPrivilege2.map((el, key) => (
-                                                    <div key={key} className={` w-full h-10 flex justify-center items-center ${FUNCTIONS[data.function].access.indexOf(el) != -1 && "bg-white"}`} >
-                                                        {FUNCTIONS[data.function].access.indexOf(el) != -1 && (<div className='font-bold'> {el} </div>)}
+                                                    <div key={key} className={` w-full h-10 flex justify-center items-center ${FUNCTIONS[data.category][data.function].access.indexOf(el) != -1 && "bg-white"}`} >
+                                                        {FUNCTIONS[data.category][data.function].access.indexOf(el) != -1 && (<div className='font-bold'> {el} </div>)}
                                                     </div>
                                                 ))
                                             }
@@ -153,7 +111,7 @@ const PreviewBadge = () => {
                                                 {data.activity}
                                             </div>
                                             <div className="text-semibold">
-                                                {FUNCTIONS[data.function].privileges.toString()}
+                                                {FUNCTIONS[data.category][data.function].privileges.toString()}
                                             </div>
                                         </div>
                                     </div>
@@ -161,7 +119,7 @@ const PreviewBadge = () => {
                             </div>
                         </div>
                         <div className="w-full p-3 flex justify-center">
-                            <div className={`${FUNCTIONS[data.function].color}  w-full p-3 py-9 h-[600px] flex flex-col gap-y-5 relative`}>
+                            <div className={`${FUNCTIONS[data.category][data.function].color}  w-full p-3 py-9 h-[600px] flex flex-col gap-y-5 relative`}>
                                 <div className="flex justify-between gap-2 text-white text-sm">
                                     <div className="w-full">
                                         <p>1 : Tribune	présidentielle</p>

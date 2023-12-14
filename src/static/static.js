@@ -226,8 +226,8 @@ export const footerData = [
 export const DelegationCategoriesFunctions = [
   'Officiel',
   'Membre	du	gouvernement',
-  'Chef	de	délégation',
-  'Chef	de	mission',
+  'Chef de délégation',
+  'Chef	de mission',
   'Administratif',
   'Entraîneur',
   'Technique',

@@ -7,6 +7,7 @@ import { DelegationCategoriesFunctions } from '../../static/static';
 import { useAddDelegationParticipantMutation } from '../../api/ParticipantApi';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import FormErrorsProvider from '../../utils/FormErrorsProvider';
 const FormParticipant = () => {
     const userTypes = [
         'Chef de délégation',
@@ -15,6 +16,9 @@ const FormParticipant = () => {
     ]
     const [createParticipant] = useAddDelegationParticipantMutation()
     const country = useSelector((state) => state.auth.user_infos.country)
+    const [errors, setErrors] = useState(null)
+    const [errorState, setErrorState] = useState({});
+    const [helperTextState, setHelperTextState] = useState({});
     const [formData, setFormData] = useState({
         name: '',
         surname: '',
@@ -66,15 +70,23 @@ const FormParticipant = () => {
                     Ajouter un membre à votre délégation
                 </div>
 
+                <FormErrorsProvider
+                    errors={errors}
+                    setErrorState={setErrorState}
+                    setHelperTextState={setHelperTextState}
+                />
+
                 <img src={formData?.photo || ''} alt='Image' className='w-[200px] h-[200px] object-contain rounded-full ring-4 ring-gray-100' />
                 <FormTemplate label='Selectionnez une photo (datant de moins de 6 mois)' >
                     <TextField
+
                         required
                         variant='outlined'
                         placeholder='Entrez le nom '
                         fullWidth
                         type='file'
                         onChange={handleChoose}
+
 
                     />
                 </FormTemplate>
@@ -83,6 +95,8 @@ const FormParticipant = () => {
                         {/* <Form */}
                         <FormTemplate label='Nom' >
                             <TextField
+                                error={errorState['name']}
+                                helperText={helperTextState['name']}
                                 required
                                 variant='outlined'
                                 placeholder='Entrez le nom '
@@ -96,6 +110,8 @@ const FormParticipant = () => {
                     <div className="w-full">
                         <FormTemplate label='Prénom' >
                             <TextField
+                                error={errorState['surname']}
+                                helperText={helperTextState['surname']}
                                 variant='outlined'
                                 placeholder='Entrez le prénom '
                                 fullWidth
@@ -118,6 +134,8 @@ const FormParticipant = () => {
                 </FormTemplate>
                 <FormTemplate label="Epreuve" >
                     <TextField
+                        error={errorState['activity']}
+                        helperText={helperTextState['activity']}
                         required
                         variant='outlined'
                         placeholder='Epreuve'
@@ -137,8 +155,12 @@ const FormParticipant = () => {
                     />
                 </FormTemplate>
 
-                <FormTemplate label="Fonction">
+                <FormTemplate label="Fonction"
+
+                >
                     <Select
+                        error={errorState['function']}
+                        helperText={helperTextState['function']}
                         placeholder="Selectionnez le type d'utilisateur"
                         value={formData.rule}
                         fullWidth
