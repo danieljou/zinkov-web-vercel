@@ -10,7 +10,7 @@ import images from '../assets/images'
 // import 'https://cdn.tailwindcss.com'
 const FUNCTIONS = {
     'Officiel': {
-        color: 'bg-red',
+        color: 'bg-red-800',
         access: [2, 9],
         privileges: []
     },
