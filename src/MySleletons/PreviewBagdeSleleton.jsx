@@ -7,8 +7,9 @@ const PreviewBagdeSleleton = () => {
     <div className="w-full p-3 flex justify-center">
       <div className="w-full p-3">
         {/* Skeleton for the first section */}
-        <Skeleton variant="rectangular" width={500} height={200} />
-        <Skeleton variant="rectangular" width={500} height={400} />
+        <Skeleton variant="rectangular"  width={500} height={200} />
+        <Skeleton variant="rectangular" className='my-5' width={500} height={280} />
+        <Skeleton variant="rectangular" width={500} height={100} />
 
       </div>
     </div>

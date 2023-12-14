@@ -4,6 +4,7 @@ import { Box, IconButton, Skeleton } from '@mui/material'
 import { DataGrid, frFR } from '@mui/x-data-grid'
 import { FiEye } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+import TableSkeleton from '../../MySleletons/TableSkeleton'
 
 const Demandes = () => {
 
@@ -64,13 +65,9 @@ const Demandes = () => {
                         )
                         :
                         (
-                            <>
-                                <div className="flex gap-2">
-                                    <Skeleton className='w-full mb-2' height={200} />
-                                    <Skeleton className='w-full mb-2' height={200} />
-                                </div>
-                                <Skeleton className='w-full mb-2' height={200} />
-                            </>
+                            <div className='w-full'>
+                               <TableSkeleton/>
+                            </div>
                         )
                 }
             </Box>
