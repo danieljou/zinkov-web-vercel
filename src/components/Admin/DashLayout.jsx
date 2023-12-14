@@ -74,7 +74,7 @@ const DashLayout = () => {
           </button>
         </div>
         <main className="pt-10 px-7">
-          <LoadingPage/>
+          {/* <LoadingPage/> */}
           <Outlet />
         </main>
       </div>
