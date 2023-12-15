@@ -19,8 +19,8 @@ const TableSkeleton = () => {
           {/* Générer un nombre de lignes souhaité */}
           {[...Array(30)].map((_, index) => (
             <tr key={index}>
-              <td className="py-2 h-[20px] px-4"><Skeleton variant="text" /></td>
-              <td className="py-2 h-[20px] px-4"><Skeleton variant="text" /></td>
+              <td className="py-2 h-[100px]  w-[100px] px-4"><Skeleton  height={50} width={50} variant="circular" /></td>
+              <td className="py-2 h-[20px] px-4"><Skeleton  variant="text" /></td>
               <td className="py-2 h-[20px] px-4"><Skeleton variant="text" /></td>
               <td className="py-2 h-[20px] px-4"><Skeleton variant="text" /></td>
               <td className="py-2 h-[20px] px-4"><Skeleton variant="text" /></td>

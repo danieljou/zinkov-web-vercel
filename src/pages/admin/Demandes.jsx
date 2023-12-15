@@ -1,13 +1,14 @@
 import React from 'react'
 import { useGetParticipantsQuery } from '../../api/ParticipantApi'
 import { Box, IconButton, Skeleton } from '@mui/material'
-import { DataGrid, frFR } from '@mui/x-data-grid'
+import { DataGrid, GridToolbarExport, frFR } from '@mui/x-data-grid'
 import { FiEye } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 import TableSkeleton from '../../MySleletons/TableSkeleton'
+import CustomNoRowsOverlay from '../../MySleletons/CustomNoRowsOverlay'
 
 const Demandes = () => {
-
+    
     const ParticipantImage = (params) => {
         const photo = params.row.photo
         return (
@@ -59,6 +60,11 @@ const Demandes = () => {
                                     rows={data}
                                     columns={columns}
                                     pageSize={5}
+                                    sx={{ '--DataGrid-overlayHeight': '300px' }}
+                                    slots={{
+                                        noRowsOverlay: CustomNoRowsOverlay,
+                                        toolbar :GridToolbarExport
+                                    }}
                                 // checkboxSelection
                                 />
                             </div>

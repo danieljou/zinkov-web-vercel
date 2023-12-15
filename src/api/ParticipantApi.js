@@ -13,6 +13,7 @@ export const ParticipantApi = createApi({
                 headers.set("Content-type", "application/json");
                 // // console.log(headers.get("authorization"));
             }
+            console.log('Headers', headers);
             return headers;
         },
     }),

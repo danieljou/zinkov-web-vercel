@@ -6,15 +6,19 @@ const FormErrorsProvider = ({ errors, setErrorState, setHelperTextState }) => {
         if (errors != null) {
             const newErrors = {};
             const newHelperTexts = {};
-
-            Object.keys(errors).forEach(field => {
-                const fieldErrors = errors[field];
-                newErrors[field] = fieldErrors.length > 0;
-                newHelperTexts[field] = fieldErrors.join(', '); // Ou utilisez un format approprié pour le texte d'aide
-            });
-
-            setErrorState(newErrors);
-            setHelperTextState(newHelperTexts);
+            try {
+                Object.keys(errors).forEach(field => {
+                    const fieldErrors = errors[field];
+                    newErrors[field] = fieldErrors.length > 0;
+                    newHelperTexts[field] = fieldErrors.join(', '); // Ou utilisez un format approprié pour le texte d'aide
+                });
+    
+                setErrorState(newErrors);
+                setHelperTextState(newHelperTexts);
+            } catch {
+                
+            }
+           
         }
     }, [errors]);
     return (

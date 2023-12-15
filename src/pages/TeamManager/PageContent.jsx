@@ -4,8 +4,9 @@ import { IoClose } from 'react-icons/io5'
 import FormParticipant from '../../components/Forms/FormParticipant'
 import { Link } from 'react-router-dom'
 import { useGetDelegationParticipantQuery } from '../../api/ParticipantApi'
-import { DataGrid, frFR } from '@mui/x-data-grid'
+import { DataGrid, frFR , GridToolbarExport } from '@mui/x-data-grid'
 import { DelegationCategoriesFunctions } from '../../static/static'
+import CustomNoRowsOverlay from '../../MySleletons/CustomNoRowsOverlay'
 
 const PageContent = ({ type, title }) => {
     const { data, isLoading, isSuccess, refetch } = useGetDelegationParticipantQuery({ type: DelegationCategoriesFunctions.indexOf(type) })
@@ -68,10 +69,18 @@ const PageContent = ({ type, title }) => {
                         (
                             <div className='my-3'>
                                 <DataGrid
+                                    autoHeight
                                     localeText={frFR.components.MuiDataGrid.defaultProps.localeText}
                                     rows={data}
                                     columns={columns}
                                     pageSize={5}
+                                    
+                                    // slots={{noRowsOverlay : (<CustomNoRowsOverlay />)}}
+                                    sx={{ '--DataGrid-overlayHeight': '300px' }}
+                                    slots={{
+                                        noRowsOverlay: CustomNoRowsOverlay,
+                                        toolbar :GridToolbarExport
+                                    }}
                                 // checkboxSelection
                                 />
                             </div>
