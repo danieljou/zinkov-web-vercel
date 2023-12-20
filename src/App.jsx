@@ -20,6 +20,7 @@ import ResetPwd from './pages/ResetPwd'
 import PageContent from './pages/TeamManager/PageContent'
 import FormParticipant from './components/Forms/FormParticipant'
 import PreviewBadge from './components/PreviewBadge'
+import Preveiw from './pdf/Preveiw'
 
 
 
@@ -61,6 +62,7 @@ function App() {
             <Route path='users' Component={User} />
             <Route path='demandes' Component={Demandes} />
             <Route path='preview/:id' Component={PreviewBadge} />
+            <Route path='academie' Component={Preveiw} />
           </Route>
           <Route path='/team-manager' element={
             <IsAuthenticated>

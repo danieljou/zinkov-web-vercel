@@ -9,21 +9,23 @@ import logo2 from '../assets/logos.jpg'
 import images from '../assets/images'
 import { FUNCTIONS } from '../static/others'
 import PreviewBagdeSleleton from '../MySleletons/PreviewBagdeSleleton'
+import { PDFViewer } from '@react-pdf/renderer'
+import CardTemplate1 from '../pdf/CardTemplate1'
 // import 'https://cdn.tailwindcss.com'
 
 const FirstPrivilege = [1, 2, 3, 4, 5]
 const FirstPrivilege2 = [6, 7, 8, 9, 10]
 const PreviewBadge = () => {
-    const handlePrint = () =>{
+    const handlePrint = () => {
         const printContents = document.getElementById('card');
         const originalContents = document.body.innerHTML;
         document.body.innerHTML = printContents.innerHTML;
-    
+
         window.print();
-    
+
         document.body.innerHTML = originalContents;
     }
-    console.log('DL2',FUNCTIONS["Délégation"]['Officiel'])
+    console.log('DL2', FUNCTIONS["Délégation"]['Officiel'])
     const { data: countries, isLoading: countriesLoading, isSuccess: countriesSuccess } = useGetCountryQuery()
     const { id } = useParams()
     const { data, isLoading, isSuccess } = useGetParticipantsDetailsQuery(id)
@@ -55,21 +57,21 @@ const PreviewBadge = () => {
 
     return (
         <div className='' >
-            <button  onClick={handlePrint} className='p-3 bg-blue-600 text-white w-[170px]' > Print </button>
+            <button onClick={handlePrint} className='p-3 bg-blue-600 text-white w-[170px]' > Print </button>
             {
                 isLoading && (
-                    <PreviewBagdeSleleton/>
+                    <PreviewBagdeSleleton />
                 )
             }
 
             {
                 isSuccess && (
-                    <div  id="card" className='flex justify-between  divide-x-2 w-full p-3' >
+                    <div id="card" className='flex justify-between  divide-x-2 w-full p-3' >
                         <div className="w-full p-3 flex justify-center">
                             <div className={`${FUNCTIONS[data.category][data.function].color}  w-full p-3 py-9 h-[600px] flex flex-col gap-y-5`}>
                                 <div className="m-auto h-1/4 bg-white/75 w-5/6 flex p-3 gap-4">
-                                    <p className='text-xl font-semibold' > 
-                                     23 <sup>ième</sup> championnats d’Afrique d’athlétisme Senior « Douala 24 »
+                                    <p className='text-xl font-semibold' >
+                                        23 <sup>ième</sup> championnats d’Afrique d’athlétisme Senior « Douala 24 »
                                     </p>
                                     <img src={logo} className='h-full' alt="" />
                                 </div>
@@ -157,9 +159,15 @@ const PreviewBadge = () => {
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
                 )
+
             }
+            <PDFViewer width={'100%'} height={'800'} >
+                <CardTemplate1 />
+            </PDFViewer>
         </div>
     )
 }

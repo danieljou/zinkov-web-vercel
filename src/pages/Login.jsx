@@ -1,4 +1,4 @@
-import { IconButton, InputAdornment, TextField } from '@mui/material'
+import { Button, IconButton, InputAdornment, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { FiEye } from "react-icons/fi";
 import { FiEyeOff } from "react-icons/fi";
@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../slices/AuthSlice';
+import { FaSpinner } from "react-icons/fa";
 const Login = () => {
 
     const navigate = useNavigate()
@@ -24,10 +25,12 @@ const Login = () => {
     })
     const [login] = useLoginMutation()
     const [passwordHide, setPasswordHide] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
     const searchParams = new URLSearchParams(location.search)
     const next = searchParams.get('next') || ""
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setIsLoading(true)
         console.log(isError);
         if (isError.password || isError.username) {
 
@@ -35,6 +38,7 @@ const Login = () => {
         }
         else {
             const res = await login({ data: formData })
+
             if (res.data) {
                 toast('Authentification effectéue avec succèss', {
                     type: 'success'
@@ -56,9 +60,11 @@ const Login = () => {
                 // console.log(res.data.token.user)
                 // (user != null) navigate(`/redirect/${next !== "" && (`"?next?"${next}`)})
                 navigate(`/redirect`)
+                setIsLoading(false)
 
             }
             else if (res.error) {
+                setIsLoading(false)
                 if (res.error.status === 400) {
                     toast("Login ou mot de passe incorrect", {
                         type: 'error'
@@ -70,8 +76,11 @@ const Login = () => {
                         type: 'error'
                     })
                 }
+
             }
+            setIsLoading(false)
         }
+       
 
     }
 
@@ -157,7 +166,22 @@ const Login = () => {
                                 <div className="flex items-center justify-between">
                                     <a href="#" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Mot de passe oublié?</a>
                                 </div>
-                                <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Se Connecter</button>
+                                <button
+                                    disabled={isLoading}
+                                    type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-700  focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    {
+                                        isLoading ?
+                                            (
+                                                <FaSpinner className='animate-spin  mx-auto ' size={25} />
+
+                                            ) :
+                                            (
+                                                'Se Connecter'
+                                            )
+                                    }
+
+                                </button>
+
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                     Vous n'avez pas encore de compte ? <a href="#" className="font-medium text-blue-600 hover:underline dark:text-blue-500">Enregistrez-vous</a>
                                 </p>
