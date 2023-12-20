@@ -43,10 +43,12 @@ const PreviewBadge = () => {
             countries.forEach(country => {
                 const countryName = country.name.common;
                 const countryFlag = country.flags?.svg; // Utilise l'opérateur de chaînage optionnel pour éviter les erreurs
+                // console.log('Country :', country.flags);
+                const countryFlagImg = country.flags?.png; // Utilise l'opérateur de chaînage optionnel pour éviter les erreurs
 
                 // Stocke le drapeau du pays s'il est disponible
                 if (countryFlag) {
-                    countriesWithFlags[countryName] = countryFlag;
+                    countriesWithFlags[countryName] = [countryFlag, countryFlagImg];
                 }
             });
 
@@ -85,7 +87,7 @@ const PreviewBadge = () => {
                                             <p> {data.country}
                                                 {data && data.function && countries && !countriesLoading && countriesSuccess && countrieFlags && (
                                                     // Vérifie que toutes les données nécessaires sont disponibles avant d'afficher le drapeau du pays du participant
-                                                    <img width={50} src={countrieFlags[data.country]} alt="Country Flag" />
+                                                    <img width={50} src={countrieFlags[data.country][1]} alt="Country Flag" />
                                                 )}
                                             </p>
 
@@ -165,9 +167,13 @@ const PreviewBadge = () => {
                 )
 
             }
-            <PDFViewer width={'100%'} height={'800'} >
-                <CardTemplate1 />
-            </PDFViewer>
+            {
+                data && data.function && countries && !countriesLoading && countriesSuccess && countrieFlags &&  (
+                    <PDFViewer width={'100%'} height={'800'} >
+                        <CardTemplate1 data={[data]} flags={countrieFlags} />
+                    </PDFViewer>
+                )
+            }
         </div>
     )
 }

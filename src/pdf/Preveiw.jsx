@@ -7,7 +7,7 @@ const Preveiw = () => {
     <div>
 
         <PDFViewer width={'100%'} height={700} >
-            <CardTemplate1/>
+            {/* <CardTemplate1/> */}
         </PDFViewer>
     </div>
   )

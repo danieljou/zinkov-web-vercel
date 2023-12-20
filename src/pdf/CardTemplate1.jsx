@@ -1,10 +1,37 @@
-import React from 'react'
-import { Document, Page, View, Text, StyleSheet, Image, Font } from '@react-pdf/renderer'
+import React, { useState } from 'react'
+import { Document, Page, View, Text, StyleSheet, Image, Font, Svg } from '@react-pdf/renderer'
 import { FUNCTIONS } from '../static/others'
 import images from '../assets/images'
+import { useGetCountryQuery } from '../api/AuthenticationApi'
 
 
-const CardResto = () => {
+const CardResto = ({ data, flags }) => {
+    const [category, setCategory] = useState('')
+    const [countriesOkay, setCountriesOkay] = useState(false)
+    const [countrieFlags, setCountrieFlags] = useState(null)
+    console.log("Flags : ", flags);
+    fetch('https://restcountries.com/v3.1/region/africa?fields=name,flags')
+        .then((res) => {
+            const countriesWithFlags = {};
+            console.log('Response', res);
+            res.forEach(country => {
+                const countryName = country.name.common;
+                const countryFlag = country.flags?.svg; // Utilise l'opérateur de chaînage optionnel pour éviter les erreurs
+
+                // Stocke le drapeau du pays s'il est disponible
+                if (countryFlag) {
+                    countriesWithFlags[countryName] = countryFlag;
+                }
+            });
+
+            // Met à jour l'état avec les drapeaux des pays
+            setCountrieFlags(countriesWithFlags);
+            setCountriesOkay(true)
+            console.log('Logo', countrieFlags[data.country]);
+        }).catch((err) => {
+
+        })
+    console.log("DATA :", data);
     return (
         <View style={styles.recto}>
             <View style={{
@@ -34,19 +61,25 @@ const CardResto = () => {
                         width: 70,
                         height: 70,
                         objectFit: 'cover'
-                    }} source={images.logoCrtv} />
+                    }} source={data.photo} />
                 </View>
                 <View style={{ marginLeft: 10 }} >
-                    <Text style={styles.textSmall} > Tiomela jou </Text>
-                    <Text style={styles.textSmall} > Daniel </Text>
-                    <Text style={styles.textSmall} > Délégation </Text>
-                    <Text style={styles.textSmall} > RD Congo </Text>
+                    <Text style={{...styles.textSmall, }} > {data.name} </Text>
+                    <Text style={styles.textSmall} > {data.surname}  </Text>
+                    <Text style={styles.textSmall} > {data.category}  </Text>
+                    <Text style={styles.textSmall} > {data.country}  </Text>
+
                     <Image style={{
                         width: 30,
                         height: 20,
                         objectFit: 'cover',
                         marginTop: 5
-                    }} source={images.logoCrtv} />
+                    }}
+                        // src={flags[data.country][]}
+                        source={flags[data.country][1]}
+                    />
+
+
                 </View>
 
             </View>
@@ -56,6 +89,7 @@ const CardResto = () => {
 }
 
 const CardVerso = () => {
+
     return (
         <View style={{ ...styles.recto, position: 'relative' }} >
 
@@ -93,27 +127,29 @@ const CardVerso = () => {
     )
 }
 
-const CardTemplate1 = ({ data, logo, countrieFlags, images }) => {
+const CardTemplate1 = ({ data, flags }) => {
     const FirstPrivilege = [1, 2, 3, 4, 5]
     const FirstPrivilege2 = [6, 7, 8, 9, 10]
+
     return (
         <Document  >
             <Page size="A4" style={{ ...styles.flex, height: '100%', gap: 20, padding: 20 }} wrap={true} >
-                <CardResto />
-                <CardResto />
-                <CardResto />
-                <CardResto />
-                <CardResto />
+                {
+                    data.map((user, index) => (
+                        <CardResto key={index} data={user} flags={flags} />
+
+                    ))
+                }
             </Page>
 
             <Page size="A4" style={{ ...styles.flex, height: '100%', gap: 20, padding: 20 }} wrap={true} >
 
-                <CardVerso />
-                <CardVerso />
-                <CardVerso />
-                <CardVerso />
-                <CardVerso />
-                <CardVerso />
+            {
+                    data.map((user, index) => (
+                        <CardVerso key={index} />
+
+                    ))
+                }
 
 
             </Page>
